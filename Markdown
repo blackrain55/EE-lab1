@@ -1,0 +1,154 @@
+# Engineering Electromagnetics - Experiment 1
+
+##  Name : 谭文杰  Student ID: 11910908
+
+### A. Case 1:Electric field distribution of two identical point charges
+
+
+
+1.Matlab Source Code
+
+```matlab
+clc
+k = 9e9
+Q1 = 1e-9
+Q2 = 1e-9
+xm = 0.05
+ym = 0.05
+x = linspace(-xm, xm, 20)
+y = linspace(-ym, ym, 20)
+
+[X, Y ] = meshgrid(x,y)
+
+R1 = sqrt((X - 0.01).^2 +  Y.^2)
+R2 = sqrt((X + 0.01).^2 +  Y.^2)
+
+V = k * Q1 ./ R1  + k * Q2 ./ R2 
+
+mesh(X,Y,V)
+title('the plot of electric potential distribution of a point charge in the vacuum', 'fontsize',20)
+xlabel('x-axis/m'),ylabel('y-axis/m')
+
+Tmax=max(max(V))                                
+Tmin=min(min(V))                                 
+Vmin=200;                                          
+Vmax=2000;                                        
+Veq=linspace(Vmin,Vmax,10);                          
+contour(X,Y,V,Veq);  
+grid on
+hold on
+plot(-0.01,0,'o','MarkerSize',12)
+plot(0.01,0,'o','MarkerSize',12)
+hold off
+
+
+[Ex,Ey]=gradient(-V);                      
+E=sqrt(Ex.^2+Ey.^2);                        
+Ex=Ex./E;                                
+Ey=Ey./E; 
+hold on
+quiver(X,Y,Ex,Ey); 
+contour(X,Y,V,Veq)
+xlim([-0.0564 0.0564])
+ylim([-0.056 0.056])
+xlabel('x-axis/m'),ylabel('y-axis/m')
+title('Equipotential lines and electric field lines of two point charges electric field in vacuum（represented by normalized arrowhead）','fontsize',12)
+hold off
+
+del_theta = 20
+theta = (0: del_theta: 360) .*pi/180
+startx = 0.01*cos(theta)
+starty = 0.01*sin(theta)
+figure
+streamline(X,Y, Ex,Ey ,startx,starty)
+hold on
+grid on
+plot(-0.01,0,'o','MarkerSize',12)
+plot(0.01,0,'o','MarkerSize',12)
+xlim([-0.0564 0.0564])
+ylim([-0.056 0.056])
+xlabel('x-axis / m')
+ylabel('y_axis / m')
+title('Isopotential Line and Power Line of Two Point charge Electric Field in vacuum (expressed by smooth continuous Curves ', 'fontsize',12)
+contour(X,Y,V,Veq)
+hold off
+```
+
+
+
+2.Experiment results 
+
+![The plot electric potential distribution of two point charges in the vacuum](F:\EE_lab_result\Lab_1\A1.jpg)
+
+The electric potential of a single point change can be expressed as 
+$$
+V_p(\vec{r}) = \frac{Q_1} {{4\pi\epsilon_0|\vec{r}-\vec{r_1}|}}
+$$
+And for the n charges in vacuum, it's potential can be expressed as 
+$$
+V_p(\vec{r}) = \sum_{m=1}^n\frac{Q_m} {{4\pi\epsilon_0|\vec{r}-\vec{r_m}|}}
+$$
+As for the concrete problem here, calculate the result:
+$$
+V = \frac{Q_1}{4\pi\epsilon_0} \times [\frac{1}{\sqrt{(x-0.01)^2+y^2}}+\frac{1}{\sqrt{(x+0.01)^2}+y^2}]
+$$
+
+
+********
+
+![the distribution of the contours in the field](F:\EE_lab_result\Lab_1\A4.jpg)
+
+
+
+![Isopotential Line and Power Line of Two Point charge Electric Field in vacuum (expressed by smooth continuous Curves](F:\EE_lab_result\Lab_1\A2.jpg)
+
+![Equipotential lines and electric field lines of two point charges electric field in vacuum（represented by normalized arrowhead](F:\EE_lab_result\Lab_1\A3.jpg)
+
+According to the electric potential  got before , the electric field can be calculate by the following formula :
+$$
+E = -\nabla V
+$$
+
+
+### B.Case 2: Electric field distribution of two opposite point charges with the same magnitude
+
+1.Matlab Source Code
+
+```matlab
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
