@@ -1,0 +1,71 @@
+clc
+k = 9e9
+Q1 = 5e-9
+Q2 = -5e-9
+xm = 20
+ym = 20
+x = linspace(-xm, xm, 20)
+y = linspace(-ym, ym, 20)
+
+[X, Y ] = meshgrid(x,y)
+
+R1 = sqrt((X - 2).^2 +  Y.^2)
+R2 = sqrt((X + 2).^2 +  Y.^2)
+
+V = k * Q1 ./ R1  + k * Q2 ./ R2 
+
+mesh(X,Y,V)
+title('谭文杰-11910908-The plot of electric potential distribution of two point opposite charges in the vacuum', 'fontsize',20)
+xlabel('x-axis/m'),ylabel('y-axis/m')
+
+Tmax=max(max(V))
+Tmin=min(min(V))                                                                         
+Veq=linspace(Tmin,Tmax,100);                          
+contour(X,Y,V,Veq);  
+grid on
+hold on
+plot(-2,0,'o','MarkerSize',12)
+plot(2,0,'o','MarkerSize',12)
+hold off
+
+
+[Ex,Ey]=gradient(-V);                      
+E=sqrt(Ex.^2+Ey.^2);                        
+Ex=Ex./E;                                
+Ey=Ey./E; 
+hold on
+quiver(X,Y,Ex,Ey); 
+contour(X,Y,V,Veq)
+xlim([-20 20])
+ylim([-20 20])
+xlabel('x-axis/m'),ylabel('y-axis/m')
+title('谭文杰-11910908-Equipotential lines and electric field lines of two point charges electric field in vacuum（represented by normalized arrowhead）','fontsize',20)
+hold off
+
+del_theta = 10
+theta1 = (-360: del_theta: 0) .*pi/180
+theta2 = (-360: del_theta: 360) .*pi/180
+startx = linspace(-20,20,73)
+starty = 8*sin(theta2)
+figure
+streamline(X,Y, Ex,Ey ,startx,starty)
+hold on
+grid on
+plot(-2,0,'o','MarkerSize',12)
+plot(2,0,'o','MarkerSize',12)
+xlim([-20 20])
+ylim([-20 20])
+xlabel('x-axis / m')
+ylabel('y_axis / m')
+title('谭文杰-11910908-Isopotential Line and Power Line of Two Point charge Electric Field in vacuum (expressed by smooth continuous Curves) ', 'fontsize',20)
+
+contour(X,Y,V,Veq)
+hold off
+
+contour(X,Y,V,Veq)
+xlabel('x-axis / m')
+ylabel('y_axis / m')
+title('谭文杰-11910908-The distribution of the contours in the field) ', 'fontsize',20)
+hold on
+plot(-2,0,'o','MarkerSize',12)
+plot(2,0,'o','MarkerSize',12)
