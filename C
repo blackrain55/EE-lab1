@@ -1,0 +1,75 @@
+clc
+k = 9e9
+Q1 = 8e-9
+Q2 = 8e-9
+Q3 = 8e-9
+xm = 3
+ym = 3
+x = linspace(-xm, xm, 30)
+y = linspace(-ym, ym, 30)
+
+[X, Y ] = meshgrid(x,y)
+
+R1 = sqrt((X - sqrt(3)).^2 +  (Y + 1).^2)
+R2 = sqrt((X + sqrt(3)).^2 +  (Y + 1).^2)
+R3 = sqrt(X .^2 + (Y - 2).^ 2)
+V = k * Q1 ./ R1  + k * Q2 ./ R2 + k * Q3 ./R3
+
+mesh(X,Y,V)
+title('谭文杰-11910908-The plot of electric potential distribution of three identical point charges in the vacuum', 'fontsize',20)
+xlabel('x-axis/m'),ylabel('y-axis/m')
+
+Tmax=max(max(V))
+Tmin=min(min(V))                                                                         
+Veq=linspace(Tmin,Tmax,100);                          
+contour(X,Y,V,Veq);  
+grid on
+hold on
+plot(-sqrt(3),-1,'o','MarkerSize',12)
+plot(sqrt(3),1,'o','MarkerSize',12)
+plot(0,2,'o','MarkerSize',12)
+hold off
+
+
+[Ex,Ey]=gradient(-V);                      
+E=sqrt(Ex.^2+Ey.^2);                        
+Ex=Ex./E;                                
+Ey=Ey./E; 
+hold on
+quiver(X,Y,Ex,Ey); 
+contour(X,Y,V,Veq)
+xlim([-3 3])
+ylim([-3 3])
+xlabel('x-axis/m'),ylabel('y-axis/m')
+title('谭文杰-11910908-Equipotential lines and electric field lines of three identical point charges electric field in vacuum（represented by normalized arrowhead）','fontsize',20)
+hold off
+
+del_theta = 20
+theta1 = (0: del_theta: 360) .*pi/180
+theta2 = (0: del_theta: 360) .*pi/180
+startx = 1 * cos(theta1)
+starty = 2 * sin(theta2)
+figure
+streamline(X,Y, Ex,Ey ,startx,starty)
+hold on
+grid on
+plot(-sqrt(3),-1,'o','MarkerSize',12)
+plot(sqrt(3),1,'o','MarkerSize',12)
+plot(0,2,'o','MarkerSize',12)
+xlim([-3 3])
+ylim([-3 3])
+xlabel('x-axis / m')
+ylabel('y_axis / m')
+title('谭文杰-11910908-Isopotential Line and Power Line of Two Point charge Electric Field in vacuum (expressed by smooth continuous Curves) ', 'fontsize',20)
+
+contour(X,Y,V,Veq)
+hold off
+
+contour(X,Y,V,Veq)
+xlabel('x-axis / m')
+ylabel('y_axis / m')
+title('谭文杰-11910908-The distribution of the contours in the field) ', 'fontsize',20)
+hold on
+plot(-sqrt(3),-1,'o','MarkerSize',12)
+plot(sqrt(3),-1,'o','MarkerSize',12)
+plot(0,2,'o','MarkerSize',12)
